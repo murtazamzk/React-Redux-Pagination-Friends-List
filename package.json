@@ -2,6 +2,7 @@
   "name": "my-friends",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://murtaza.me/test/haptik-myfriends",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -20,7 +21,8 @@
   "scripts": {
     "start": "npm run watch:css && react-scripts start",
     "build": "npm run watch:css && react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "eject": "react-scripts eject",
     "watch:css": "postcss src/assets/tailwind.css -o src/assets/main.css"
   },
@@ -42,7 +44,20 @@
       "last 1 safari version"
     ]
   },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/assets/__mocks__/styleMock.js",
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
+  },
   "devDependencies": {
-    "postcss-cli": "^8.3.0"
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
+    "enzyme-to-json": "^3.6.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest-enzyme": "^7.1.2",
+    "postcss-cli": "^8.3.0",
+    "redux-mock-store": "^1.5.4"
   }
 }

@@ -31,7 +31,7 @@ class App extends Component {
     });
   }
 
-  onSearch = keyword => {
+  onSearch(keyword){
     this.setState({
       currentPage: 1,
     });
@@ -39,7 +39,7 @@ class App extends Component {
     this.props.onSort(this.state.sortByFavourites);
   };
 
-  onSort = () => {
+  onSort(){
     this.setState({
       sortByFavourites: !this.state.sortByFavourites
     },() => {
@@ -47,12 +47,12 @@ class App extends Component {
     });
   }
 
-  markFavourite = (id) => {
+  markFavourite(id){
     this.props.onMarkFavourite(id);
     this.props.onSort(this.state.sortByFavourites);
   }
 
-  onDelete = () => {
+  onDelete(){
     this.setState({
       deleteId: '',
       deleteModal: false,
@@ -61,7 +61,7 @@ class App extends Component {
     this.props.onSort(this.state.sortByFavourites);
   }
 
-  onSubmit = event => {
+  onSubmit(event){
     event.preventDefault();
     if(this.state.friend){
       this.props.addFriend(this.state.friend);
@@ -77,7 +77,7 @@ class App extends Component {
     }
   }
 
-  onChangePage = data => {
+  onChangePage(data){
     this.setState({
       pageLimit: data.pageLimit,
       totalPages: data.totalPages,
@@ -101,16 +101,16 @@ class App extends Component {
     }
     let rowsPerPage = friends.slice(startIndex, endIndex + 1);
     return (
-      <div className="bg-gray-100 px-4 py-5 lg:px-0 min-h-screen sm:py-10 lg:py-15">
+      <div className="friend-app bg-gray-100 px-4 py-5 lg:px-0 min-h-screen sm:py-10 lg:py-15">
         <div className="max-w-md mx-auto">
           <div className="sm:flex pb-4 border-b items-center justify-between mb-4">
             <h2 className="text-md md:text-lg mb-3 sm:mb-0">My Friends List</h2>
             <Search
-              onSearch={this.onSearch}
+              onSearch={(keyword) => this.onSearch(keyword)}
               keyword={this.props.keyword}
             />
           </div>
-          <form onSubmit={this.onSubmit}>
+          <form onSubmit={(e) => this.onSubmit(e)}>
             <div className="sm:flex justify-between items-start my-5">
               <div className="w-full">
                 <input onChange={e => this.setState({friend: e.target.value})} value={this.state.friend} type="text" className="w-full bg-purple-white shadow rounded border-0 p-3 pr-10" placeholder="Add New Friend" />
@@ -121,13 +121,13 @@ class App extends Component {
           </form>
           <div className="mb-5">
             <label className="cursor-pointer inline-flex items-center mt-3">
-                <input checked={this.state.sortByFavourites} onChange={this.onSort} type="checkbox" className="form-checkbox h-5 w-5 text-gray-600" />
+                <input checked={this.state.sortByFavourites} onChange={() => this.onSort()} type="checkbox" className="form-checkbox h-5 w-5 text-gray-600" />
                 <span className="ml-2 text-gray-700">Show Favourites on top</span>
             </label>
           </div>
-
+          
           {friends && friends.length ? rowsPerPage.map((friend,index) => (
-            <div key={index} className="flex bg-white shadow rounded-lg mb-5">
+            <div key={index} role="listbox" className="flex bg-white shadow friend-card rounded-lg mb-5">
               <div className="flex items-start px-4 py-6 w-full">
                 <div className="flex items-center justify-between w-full">
                   <div className="user flex items-center justify-between">
@@ -155,7 +155,7 @@ class App extends Component {
             pageLimit={pageLimit || 4}
             initialPage={1}
             pagesToShow={7}
-            onChangePage={this.onChangePage}
+            onChangePage={(data) => this.onChangePage(data)}
           />
 
       </div>
@@ -187,7 +187,7 @@ class App extends Component {
               </div>
             </div>
             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-              <button onClick={this.onDelete} type="button" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+              <button onClick={() => this.onDelete()} type="button" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
                 Delete
               </button>
               <button onClick={() => this.setState({ deleteId: '', deleteModal: false })} type="button" className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
