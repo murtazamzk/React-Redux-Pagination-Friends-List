@@ -29,10 +29,6 @@ describe('App Component', () => {
     });
 
     it('It should render without errors', () => {
-        // const comp = shallow(<App />);
-        // const wrapper = comp.find('.friend-app');
         expect(wrapper.length).toBe(1);
-        // const component = findByTestAtrr(wrapper, 'appComponent');
-        // expect(component.length).toBe(1);
     });
 });

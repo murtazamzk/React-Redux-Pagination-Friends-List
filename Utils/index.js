@@ -1,4 +1,3 @@
-// import checkPropTypes from 'check-prop-types';
 import { applyMiddleware, createStore } from 'redux';
 import rootReducer from './../src/reducers';
 import thunk from "redux-thunk";
@@ -12,8 +11,6 @@ import thunk from "redux-thunk";
 //     const propsErr = checkPropTypes(component.propTypes, expectedProps, 'props', component.name);
 //     return propsErr;
 // };
-
-// const store = createStore(appReducers, composeEnhancer(applyMiddleware(thunk)));
 
 export const testStore = (initialState) => {
     const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
